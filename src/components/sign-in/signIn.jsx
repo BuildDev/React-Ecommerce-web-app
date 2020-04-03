@@ -2,21 +2,22 @@ import React, { Component } from "react";
 import "./sign-in.scss";
 import FormInput from "../form-input/formInput";
 import CustomButton from "../customButton/custtomButton";
+import { signInWithGoogle } from "../.././firebase/firebase.utils";
 
 class SignIn extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
   };
 
-  handelSubmit = e => {
+  handelSubmit = (e) => {
     e.preventDefault();
     this.setState({
       email: "",
-      password: ""
+      password: "",
     });
   };
-  handelChange = event => {
+  handelChange = (event) => {
     const { value, name } = event.target;
     this.setState({ [name]: value });
   };
@@ -42,8 +43,12 @@ class SignIn extends Component {
             handelChange={this.handelChange}
             label="Password"
           />
-
-          <CustomButton type="submit">Sign In</CustomButton>
+          <div className="buttons">
+            <CustomButton type="submit">Sign In</CustomButton>
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+              Sign In with google
+            </CustomButton>
+          </div>
         </form>
       </div>
     );
