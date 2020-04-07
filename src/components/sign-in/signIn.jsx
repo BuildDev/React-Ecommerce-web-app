@@ -28,19 +28,12 @@ class SignIn extends Component {
         <h2>I already have an account</h2>
         <span>Sign in with your email and password</span>
         <form onSubmit={this.handelSubmit}>
-          <FormInput
-            type="email"
-            name="email"
-            value={email}
-            handelChange={this.handelChange}
-            label="Email"
-          />
+          <FormInput type="email" name="email" value={email} label="Email" />
 
           <FormInput
             type="password"
             name="password"
             value={password}
-            handelChange={this.handelChange}
             label="Password"
           />
           <div className="buttons">
