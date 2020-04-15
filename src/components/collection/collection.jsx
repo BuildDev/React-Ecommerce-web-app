@@ -12,9 +12,7 @@ const Collection = ({ title, items }) => {
           .map(item => (
             <CollectionItems
               key={item.id}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              name={item.name}
+              item={item}
             />
           ))}
       </div>
