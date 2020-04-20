@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user-actions";
 import { selectCurrentUser } from "./redux/user/user-selectors";
 import ChekoutPage from "./pages/checkoutPage/checkoutPage";
+
 class App extends Component {
   unsubsucribeFromAuth = null;
 
