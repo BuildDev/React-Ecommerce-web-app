@@ -5,6 +5,7 @@ import "./category-page.scss";
 import CollectionItems from "../../components/collection-item/collection-items";
 
 const CategoryPage = ({ collection }) => {
+  console.log(collection)
   const { title, items } = collection;
   return (
     <div className="collection-page">
