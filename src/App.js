@@ -5,17 +5,21 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import ShopPage from "./pages/shopePage/shopePage";
 import Header from "./components/header/header";
 import SignInAndSignUpPage from "./pages/sign-in-up-page/signIn-signUp-Page";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+} from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user-actions";
 import { selectCurrentUser } from "./redux/user/user-selectors";
 import ChekoutPage from "./pages/checkoutPage/checkoutPage";
+import { selectCollectionsForPreview } from "./redux/shop/shop-selectors";
 
 class App extends Component {
   unsubsucribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, collectionsArray } = this.props;
     this.unsubsucribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = await createUserProfileDocument(user);
@@ -30,6 +34,7 @@ class App extends Component {
         });
       }
       setCurrentUser(user);
+      
     });
   }
 
@@ -62,6 +67,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   currentUser: selectCurrentUser(state),
+  collectionsArray: selectCollectionsForPreview(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
