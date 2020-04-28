@@ -8,9 +8,15 @@ import {
 } from "../../firebase/firebase.utils.js";
 import { updateCollections } from "../../redux/shop/shop-actions";
 import { connect } from "react-redux";
+import WithSpinner from "../../components/with-spinner/withSpinner";
+
+const CollectionOverviewWithSpinner = WithSpinner(CollectionPreview);
+const CollectionCategoryWithSpinner = WithSpinner(CategoryPage);
 
 class ShopPage extends Component {
-  state = {};
+  state = {
+    isLoding: true,
+  };
 
   unsubscribeFromSnapshot = null;
 
@@ -21,14 +27,27 @@ class ShopPage extends Component {
     collectionRef.get().then((snapshot) => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
       updateCollections(collectionsMap);
+      this.setState({ isLoding: false });
     });
   }
   render() {
     const { match } = this.props;
+    const { isLoding } = this.state;
     return (
       <div className="shop-page">
-        <Route exact path={`${match.path}`} component={CollectionPreview} />
-        <Route path={`${match.path}/:categoryId`} component={CategoryPage} />
+        <Route
+          exact
+          path={`${match.path}`}
+          render={(props) => (
+            <CollectionOverviewWithSpinner isLoding={isLoding} {...props} />
+          )}
+        />
+        <Route
+          path={`${match.path}/:categoryId`}
+          render={(props) => (
+            <CollectionCategoryWithSpinner isLoding={isLoding} {...props} />
+          )}
+        />
       </div>
     );
   }
